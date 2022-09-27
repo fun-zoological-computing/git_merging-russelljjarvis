@@ -1,0 +1,22 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "name": "McDonalds",
+        "Address": "GWH"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          150.75750589370725,
+          -33.76857032441995
+        ]
+      }
+    }
+  ]
+}
