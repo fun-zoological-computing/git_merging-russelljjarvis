@@ -54,13 +54,13 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 
 ### Creating a merge conflict
 Getting familiar with merge conflicts via simulation.
-```
-$ mkdir git-merge-test
-$ cd git-merge-test
-$ git init .
-$ echo "this is some content to mess with" > merge.txt
-$ git add merge.txt
-$ git commit -am"we are commiting the inital content"
+```BASH
+mkdir git-merge-test
+cd git-merge-test
+git init .
+echo "this is some content to mess with" > merge.txt
+git add merge.txt
+git commit -am"we are commiting the inital content"
 ```
 ```
 [main (root-commit) d48e74c] we are commiting the inital content
@@ -73,10 +73,11 @@ create mode 100644 merge.txt
 * Add merge.txt to the repo and commit it.
 
 Now we have a new repo with one branch main and a file merge.txt with content in it. Next, we will create a new branch to use as the conflicting merge.
-```
-$ git checkout -b new_branch_to_merge_later
-$ echo "totally different content to merge later" > merge.txt
-$ git commit -am"edited the content of merge.txt to cause a conflict"
+```BASH
+git checkout -b new_branch_to_merge_later
+echo "totally different content to merge later" > merge.txt
+git add merge.txt
+git commit -am"edited the content of merge.txt to cause a conflict"
 ```
 [new_branch_to_merge_later 6282319] edited the content of merge.txt to cause a conflict
 1 file changed, 1 insertion(+), 1 deletion(-)
@@ -86,10 +87,11 @@ The proceeding command sequence achieves the following:
 * overwrite the content in merge.txt  
 * commit the new content
 With this new branch: new_branch_to_merge_later we have created a commit that overrides the content of merge.txt
-```
+```BASH
 git checkout main
 Switched to branch 'main'
 echo "content to append" >> merge.txt
+git add merge.txt
 git commit -am"appended content to merge.txt"
 ```
 [main 24fbe3c] appended content to merge.tx
@@ -108,7 +110,7 @@ Automatic merge failed; fix conflicts and then commit the result.
 ### How to identify merge conflicts
 As we have experienced from the proceeding example, Git will produce some descriptive output letting us know that a CONFLICT has occcured. We can gain further insight by running the git status command
 ```
-$ git status
+git status
 ```
 On branch main
 You have unmerged paths.
@@ -123,8 +125,8 @@ The output from git status indicates that there are unmerged paths due to a conf
  
 In the content below, think of these new lines as "conflict dividers". The ======= line is the "center" of the conflict. All the content between the center and the <<<<<<< HEAD line is content that exists in the current branch main which the HEAD ref is pointing to. Alternatively all content between the center and >>>>>>> new_branch_to_merge_later is content that is present in our merging branch.
  
-```
-$ cat merge.txt
+```BASH
+cat merge.txt
 ```
 `<<<<<<<` HEAD
            
@@ -152,20 +154,20 @@ totally different content to merge later
  
 The most direct way to resolve a merge conflict is to edit the conflicted file. Open the merge.txt file in your favorite editor. For our example lets simply remove all the conflict dividers. The modified merge.txt content should then look like:
 
-this is some content to mess with
+```this is some content to mess with
 content to append
-totally different content to merge later
+totally different content to merge later```
 Once the file has been edited use git add merge.txt to stage the new merged content. To finalize the merge create a new commit by executing:
 
-git commit -m "merged and resolved the conflict in merge.txt"
+`git commit -m "merged and resolved the conflict in merge.txt"`
 Git will see that the conflict has been resolved and creates a new merge commit to finalize the merge.
 
 Git commands that can help resolve merge conflicts
 General tools
-git status
+`git status`
 The status command is in frequent use when a working with Git and during a merge it will help identify conflicted files.
 
-git log --merge
+`git log --merge`
 Passing the --merge argument to the git log command will produce a log with a list of commits that conflict between the merging branches.
 
 `git diff`
